@@ -32,7 +32,8 @@ except ImportError:
 from torchtext.data import Field
 from torchtext.data import TabularDataset
 from torchtext.vocab import Vectors
-
+import nltk
+nltk.download('punkt')
 
 from torchnlp.datasets import iwslt_dataset  # doctest: +SKIP
 
@@ -122,18 +123,18 @@ LABEL = Field(unk_token=None)
 tv_datafields = [("Sequence", TEXT), ("Labels", LABEL)]
 
 
-with open('text_without_disfluency.txt', 'r') as file:
+with open('/home/bbb/dev/mozzam/interm_files/text_without_disfluency.txt', 'r') as file:
     sentence = file.read()
 list_of_sent = []
 list_of_sent = ced.clean(sentence)
 
 
-vectors = Vectors(name='glove.6B.100d.txt', cache='/home/student/PycharmProjects/Masterproject')
+vectors = Vectors(name='glove.6B.100d.txt', cache='/home/bbb/dev/mozzam/punctuation_generator')
 
 MIN_FREQ = 2
 
 trn = TabularDataset(
-           path='/home/student/PycharmProjects/Masterproject/' + 'train_data1.csv',# the file path
+           path='/home/bbb/dev/mozzam/punctuation_generator/' + 'train_data1.csv',# the file path
            format='csv',
            skip_header=True, # if your csv header has a header, make sure to pass this to ensure it doesn't get proceesed as data!
            fields=tv_datafields)
@@ -144,7 +145,7 @@ TEXT.build_vocab(trn,
 LABEL.build_vocab(trn)
 
 BATCH_SIZE = 128
-device = torch.device('cuda:0')
+device = torch.device('cpu')
 
 #device = torch.cuda.current_device()
 
@@ -167,9 +168,9 @@ model = BiLSTMPOSTagger(INPUT_DIM,
                         DROPOUT,
                         PAD_IDX)
 
-model.load_state_dict(torch.load('/home/student/PycharmProjects/Masterproject/model.pt', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load('/home/bbb/dev/mozzam/punctuation_generator/model.pt', map_location=torch.device('cpu')))
 
-output_text=''
+output_text = ''
 
 for batch in list_of_sent:
     tokens, pred_tags, unks = tag_sentence(model,
@@ -179,16 +180,16 @@ for batch in list_of_sent:
                                        LABEL)
 
     for token, pred_tag in zip(tokens, pred_tags):
-        if pred_tag == 0:
+        if pred_tag == '0':
             output_text = output_text + ' ' + token
-        elif pred_tag == 1:
-            output_text = output_text + ' ' + token + '.'
-        elif pred_tag == 2:
-            output_text = output_text + ' ' + token + ','
-        elif pred_tag == 3:
-            output_text = output_text + ' ' + token + '?'
+        elif pred_tag == '1':
+            output_text = output_text + ' ' + token + '.' + '\n'
+        elif pred_tag == '2':
+            output_text = output_text + ' ' + token + ',' + '\n'
+        elif pred_tag == '3':
+            output_text = output_text + ' ' + token + '?' + '\n' 
         else:
-            output_text = output_text + ' ' + token + '!'
+            output_text = output_text + ' ' + token + '!' + '\n'
 
-with open("final_output.txt", "w") as text_file:
+with open("/home/bbb/dev/bigbluebutton_mozzam/bigbluebutton-html5/public/final_output.txt", "w") as text_file:
     text_file.write(output_text)
