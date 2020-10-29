@@ -8,9 +8,12 @@ To train this model again with addtional Punctuation follow the google colab rep
 https://colab.research.google.com/drive/1a3T2N2cK9jM9NWNxTlofLqQW-T-V7zZY#scrollTo=9x3tq_QnGHOL
 
 To run the model. Need to download glove 6B vector with 100 dimention. and changes of file paths need to be made in get_model_punctuation.py.
+Cleaning of data is inspired from Punctuator2
 
 References:
 
 - O. Tilk and T. Alum ̈ae, “Bidirectional recurrent neural network with attention mechanism for punctua-tion restoration,” inInterspeech, 2016.
 
 - https://colab.research.google.com/github/bentrevett/pytorch-pos-tagging/blob/master/1%20-%20BiLSTM%20for%20PoS%20Tagging.ipynb#scrollTo=GAJ1n_64RSaQ
+
+- https://github.com/ottokart/punctuator2 
