@@ -11,5 +11,6 @@ To run the model. Need to download glove 6B vector with 100 dimention. and chang
 
 References:
 
-O. Tilk and T. Alum ̈ae, “Bidirectional recurrent neural network with attention mechanism for punctua-tion restoration,” inInterspeech, 2016.
-https://colab.research.google.com/github/bentrevett/pytorch-pos-tagging/blob/master/1%20-%20BiLSTM%20for%20PoS%20Tagging.ipynb#scrollTo=GAJ1n_64RSaQ
+- O. Tilk and T. Alum ̈ae, “Bidirectional recurrent neural network with attention mechanism for punctua-tion restoration,” inInterspeech, 2016.
+
+- https://colab.research.google.com/github/bentrevett/pytorch-pos-tagging/blob/master/1%20-%20BiLSTM%20for%20PoS%20Tagging.ipynb#scrollTo=GAJ1n_64RSaQ
